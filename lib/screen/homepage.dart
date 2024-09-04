@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:quotesapp_dailytask/screen/Model/quote_list.dart';
 import 'package:quotesapp_dailytask/screen/Model/quotes_model.dart';
+import 'package:quotesapp_dailytask/screen/component/alertDialog.dart';
+import 'package:quotesapp_dailytask/screen/component/dialog_box.dart';
+import 'package:quotesapp_dailytask/screen/component/fullscreendialog.dart';
 import 'package:quotesapp_dailytask/screen/component/griedviewmethod.dart';
 import 'package:quotesapp_dailytask/screen/component/listviewmethod.dart';
 import 'package:quotesapp_dailytask/utils/global.dart';
@@ -15,10 +18,11 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   @override
   void initState() {
-    QuotesView=quotelist.map((e)=>Quotes.fromMap((e))).toList();
+    QuotesView = quotelist.map((e) => Quotes.fromMap((e))).toList();
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,14 +34,97 @@ class _HomepageState extends State<Homepage> {
           style: TextStyle(color: Colors.white, fontSize: 25),
         ),
         actions: [
-          IconButton(onPressed: () {
-            setState(() {
-              isGrid= !isGrid;
-            });
-          }, icon: (isGrid)?const Icon(Icons.grid_view_outlined,color: Colors.white,):const Icon(Icons.list_alt_outlined,color: Colors.white,))
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  isGrid = !isGrid;
+                });
+              },
+              icon: (isGrid)
+                  ? const Icon(
+                      Icons.grid_view_outlined,
+                      color: Colors.white,
+                    )
+                  : const Icon(
+                      Icons.list_alt_outlined,
+                      color: Colors.white,
+                    ))
         ],
       ),
-      body: (isGrid)?const GriedviewMethod():const Listviewmethod(),
+      body: (isGrid) ? const GriedviewMethod() : const Listviewmethod(),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          const SizedBox(width: 20,),
+          FloatingActionButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => alertDialog_method(context),
+              );
+            },
+            child: const Icon(Icons.add),
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) => Dialog_box(context));
+            },
+            child:const Text('Dialog'),
+          ),
+          const SizedBox(
+            width: 20,
+          ),
+          ElevatedButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) => Material(
+                      child: Container(
+                        color: Colors.white,
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Icon(Icons.close),
+                                ),
+                                const Text(
+                                  "Full-screen dialog title",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                const Spacer(),
+                                TextButton(
+                                    onPressed: () {}, child: Text('Save'))
+                              ],
+                            ),
+                            const SizedBox(height: 10,),
+                            fulldialog(label: 'Label',hint: 'Input'),
+                            fulldialog(label:'Event Name',hint: 'Event Name'),
+                          ],
+                        ),
+                      ),
+                    ));
+              },
+              style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  backgroundColor: Colors.green.shade300),
+              child: const Text(
+                'Full Screen',
+                style: TextStyle(
+                    color: Colors.black, fontWeight: FontWeight.bold),
+              )),
+        ],
+      ),
     );
   }
 }
