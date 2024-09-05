@@ -96,6 +96,7 @@ class _HomepageState extends State<Homepage> {
                                       IconButton(onPressed: () {
                                         Navigator.of(context).pop();
                                       }, icon: Icon(Icons.close)),
+
                                       const Text(
                                         "Full-screen dialog title",
                                         style: TextStyle(
