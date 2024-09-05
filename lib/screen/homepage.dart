@@ -55,7 +55,9 @@ class _HomepageState extends State<Homepage> {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          const SizedBox(width: 20,),
+          const SizedBox(
+            width: 20,
+          ),
           FloatingActionButton(
             onPressed: () {
               showDialog(
@@ -68,10 +70,9 @@ class _HomepageState extends State<Homepage> {
           FloatingActionButton(
             onPressed: () {
               showDialog(
-                  context: context,
-                  builder: (context) => Dialog_box(context));
+                  context: context, builder: (context) => Dialog_box(context));
             },
-            child:const Text('Dialog'),
+            child: const Text('Dialog'),
           ),
           const SizedBox(
             width: 20,
@@ -81,38 +82,85 @@ class _HomepageState extends State<Homepage> {
                 showDialog(
                     context: context,
                     builder: (context) => Material(
-                      child: Container(
-                        color: Colors.white,
-                        child: Column(
-                          children: [
-                            const SizedBox(
-                              height: 10,
+                          child: Container(
+                            color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    children: [
+                                      IconButton(onPressed: () {
+                                        Navigator.of(context).pop();
+                                      }, icon: Icon(Icons.close)),
+                                      const Text(
+                                        "Full-screen dialog title",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      const Spacer(),
+                                      TextButton(
+                                          onPressed: () {}, child: Text('Save'))
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  fulldialog(label: 'Label', hint: 'Input'),
+                                  fulldialog(
+                                      label: 'Event Name', hint: 'Event Name'),
+                                  const Align(
+                                    alignment: AlignmentDirectional.bottomStart,
+                                    child: Text('From',style: TextStyle(fontSize: 22),),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                          child: fulldialog(
+                                              label: 'Label', hint: 'Input')),
+                                      Expanded(
+                                          child: fulldialog(
+                                              label: 'Input', hint: 'Input')),
+                                    ],
+                                  ),
+                                  const Align(
+                                    alignment: AlignmentDirectional.bottomStart,
+                                    child: Text('To',style: TextStyle(fontSize: 22),),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                          child: fulldialog(
+                                              label: 'Label', hint: 'Input')),
+                                      Expanded(
+                                          child: fulldialog(
+                                              label: 'Input', hint: 'Input')),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Checkbox(
+                                        value: false,
+                                        onChanged: (value) {},
+                                      ),
+                                      Text('All day'),
+                                    ],
+                                  ),
+                                  const Align(
+                                    alignment: AlignmentDirectional.bottomStart,
+                                    child: Text('Timezone',style: TextStyle(fontSize: 22),),
+                                  ),
+                                  fulldialog(label: 'Label', hint: 'Input'),
+                                ],
+                              ),
                             ),
-                            Row(
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Icon(Icons.close),
-                                ),
-                                const Text(
-                                  "Full-screen dialog title",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                const Spacer(),
-                                TextButton(
-                                    onPressed: () {}, child: Text('Save'))
-                              ],
-                            ),
-                            const SizedBox(height: 10,),
-                            fulldialog(label: 'Label',hint: 'Input'),
-                            fulldialog(label:'Event Name',hint: 'Event Name'),
-                          ],
-                        ),
-                      ),
-                    ));
+                          ),
+                        ));
               },
               style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -120,8 +168,8 @@ class _HomepageState extends State<Homepage> {
                   backgroundColor: Colors.green.shade300),
               child: const Text(
                 'Full Screen',
-                style: TextStyle(
-                    color: Colors.black, fontWeight: FontWeight.bold),
+                style:
+                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
               )),
         ],
       ),
